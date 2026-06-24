@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  expiresAt DateTime
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id            Int     @id @default(autoincrement())
+  email         String  @unique
+  password      String
+  name          String
+  refreshTokens RefreshToken[]
+  tasks         Task[]
+  activityLogs  ActivityLog[]
+  notifications Notification[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+enum TaskRemarks {
+  IN_COMPLETE
+  COMPLETE
+}
+
+enum TaskStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Task {
+  id            Int         @id @default(autoincrement())
+  title         String
+  description   String?
+  remark        TaskRemarks  @default(IN_COMPLETE)
+  status        TaskStatus   @default(INACTIVE)
+  dueDate       DateTime?
+  userId        Int
+  user          User        @relation(fields: [userId], references: [id])
+  activityLogs  ActivityLog[]
+  notifications Notification[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  deletedAt     DateTime?
+}
+
+model ActivityLog {
+  id        Int       @id @default(autoincrement())
+  action    String
+  oldValue  String?
+  newValue  String?
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  taskId    Int?
+  task      Task?     @relation(fields: [taskId], references: [id])
+  createdAt DateTime  @default(now())
+}
+
+model Notification {
+  id        Int       @id @default(autoincrement())
+  type      String
+  taskId    Int?
+  task      Task?     @relation(fields: [taskId], references: [id])
+  title     String
+  message   String
+  read      Boolean   @default(false)
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(now())
+}
