@@ -28,6 +28,7 @@ A full-stack task management application that helps users organize, track, and m
 * Node.js
 * Express.js
 * TypeScript
+* Prisma ORM
 * PostgreSQL
 
 ### Database
