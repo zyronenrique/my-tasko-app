@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { LogOut, Settings, Bell } from "lucide-react";
+import { LogOut, Settings, Bell, Trash2, Logs } from "lucide-react";
 import TasKO from '../assets/tasko.webp';
 import LogoutModal from "../features/auth/pages/LogoutModal";
 import { useUnreadCount } from "../hooks/useNotifications";
+import { useNavigate } from "react-router-dom";
+import { useMe } from "../hooks/useAuth";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
-  const { data } = useUnreadCount();
+  const { data: unreadcount } = useUnreadCount();
+  const { data: user } = useMe();
   return (
     <>
       <div className='w-full flex justify-between py-2 px-4 border-b border-gray-200 shadow-sm'>
@@ -27,11 +31,11 @@ const Header = () => {
             className={`relative p-2 rounded-full hover:bg-gray-100 transition-colors focus:outline-none`}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            onClick={()=>{}}
+            onClick={()=> navigate("/dashboard/notifications")}
           >
             <Bell size={24} />
             <span className="absolute -top-1.5 -right-2 size-5 flex rounded-full items-center justify-center bg-sky-300 text-xs font-medium">
-              {data?.unreadcount || 0}
+              {unreadcount?.unreadcount || 0}
             </span>
           </motion.button>
           <div className="relative">
@@ -59,16 +63,24 @@ const Header = () => {
                 >
                   <div>
                     <div className='flex flex-col justify-center p-4 border-b-2 border-gray-200'>
-                      <h1 className='text-lg font-bold'>Zyron Enrique</h1>
-                      <p className='text-sm'>zyronneileenrique@gmail.com</p>
+                      <h1 className='text-lg font-bold'>{user?.user.name}</h1>
+                      <p className='text-sm'>{user?.user.email}</p>
                     </div>
                     <button
                       type="button"
                       className="w-full flex items-center px-6 py-4 space-x-2 hover:bg-gray-100"
-                      onClick={() => {}}
+                      onClick={() => navigate("/dashboard/trash")}
                     >
-                      <Settings size={20} />
-                      <span>Settings</span>
+                      <Trash2 size={20} />
+                      <span>Trash Bin</span>
+                    </button>
+                    <button
+                      type="button"
+                      className="w-full flex items-center px-6 py-4 space-x-2 hover:bg-gray-100"
+                      onClick={() => navigate("/dashboard/activities")}
+                    >
+                      <Logs size={20} />
+                      <span>Activity Logs</span>
                     </button>
                     <button
                       type="button"

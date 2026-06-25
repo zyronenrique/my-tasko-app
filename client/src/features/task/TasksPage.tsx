@@ -4,9 +4,9 @@ import { useState } from 'react';
 import TaskFormModal from './TaskFormModal';
 import { useTasks } from '../../hooks/useTasks';
 import TasksTableHeader from './TasksTableHeader';
-import SkeletonTasksList from '../../pages/SkeletonTasksList';
+import SkeletonTasksList from '../../components/SkeletonTasksList';
 import TasksTableRow from './TasksTableRow';
-import CustomSelect from '../../pages/CustomSelect';
+import CustomSelect from '../../components/CustomSelect';
 import type { Task } from '../../types/task.types';
 
 const TasksPage = () => {

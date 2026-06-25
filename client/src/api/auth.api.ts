@@ -1,5 +1,5 @@
 import { api } from "../lib/api-client";
-import type { AuthResponse, LoginRequest, RegisterRequest } from "../types/auth.types";
+import type { AuthResponse, LoginRequest, RegisterRequest, User } from "../types/auth.types";
 
 export async function login(
   data: LoginRequest
@@ -22,7 +22,7 @@ export async function register(
 }
 
 export async function me() {
-  return api("/api/auth/me");
+  return api<User>("/api/auth/me");
 }
 
 export async function logout() {
@@ -38,7 +38,7 @@ export function refresh(
 ) {
   return api<AuthResponse>("/api/auth/refresh",
     {
-      method: "POST", 
+      method: "POST",
       body: JSON.stringify({
         refreshToken,
       }),

@@ -5,7 +5,13 @@ import { prisma } from "../lib/prisma.js";
 export async function getNotifications(userId: number) {
   return prisma.notification.findMany({
     where: { userId },
-    include: {
+    select: {
+      id: true,
+      type: true,
+      title: true,
+      message: true,
+      read: true,
+      createdAt: true,
       task: {
         select: {
           id: true,

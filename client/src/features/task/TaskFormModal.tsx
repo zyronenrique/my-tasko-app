@@ -2,8 +2,8 @@ import { memo } from "react";
 import { motion } from "framer-motion";
 import { useCreateEditTask } from "./useCreateEditTask";
 import { ErrorIcon } from "../../pages/icons";
-import CustomSelect from "../../pages/CustomSelect";
-import CustomInput from "../../pages/CustomInput";
+import CustomSelect from "../../components/CustomSelect";
+import CustomInput from "../../components/CustomInput";
 import type { Task } from "../../types/task.types";
 
 interface TaskFormModalProps {

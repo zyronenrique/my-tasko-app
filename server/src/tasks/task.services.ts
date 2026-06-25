@@ -172,6 +172,12 @@ export async function softDeleteTask(id: number, userId: number) {
     userId,
     task.id
   );
+  await createNotification(
+    userId,
+    NotificationType.TASK_DELETED,
+    "Soft deleted",
+    `"${task.title}" moved to trash bin`
+  );
   return prisma.task.update({
     where: { id },
     data: {
@@ -209,6 +215,12 @@ export async function restoreTask(id: number, userId: number) {
     userId,
     task.id
   );
+  await createNotification(
+    userId,
+    NotificationType.TASK_RESTORED,
+    "Task restored",
+    `"${task.title}" has been restored`
+  );
   return prisma.task.update({
     where: { id },
     data: {
@@ -231,6 +243,12 @@ export async function deleteTask(id: number, userId: number) {
     ActivityAction.TASK_DELETED_PERMANENTLY,
     userId,
     task.id
+  );
+  await createNotification(
+    userId,
+    NotificationType.TASK_DELETED,
+    "Permanently deleted",
+    `"${task.title}" has been deleted permanently`
   );
   return prisma.task.delete({
     where: { id },

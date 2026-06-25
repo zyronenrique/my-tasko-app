@@ -5,6 +5,10 @@ export interface Notification {
   message: string;
   read: boolean;
   createdAt: string;
+  task: {
+    id: number;
+    title: string;
+  } | null;
 }
 
 export interface UnreadCount {

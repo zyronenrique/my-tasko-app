@@ -1,15 +1,18 @@
 export type TaskRemarks = "IN_COMPLETE" | "COMPLETE";
 export type TaskStatus = "ACTIVE" | "INACTIVE";
 
+
+
 export interface Task {
   id: number;
   title: string;
-  description?: string;
+  description?: string | null;
   remark: TaskRemarks;
   status: TaskStatus;
-  dueDate?: string;
+  dueDate?: string | null;
   createdAt: string;
   updatedAt: string;
+  deletedAt: string;
 }
 
 export interface PaginatedResponse<T> {

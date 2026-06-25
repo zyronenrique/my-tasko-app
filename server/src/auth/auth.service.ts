@@ -23,7 +23,7 @@ export async function register(
       name,
     },
   });
-  const accessToken = generateAccessToken(user.id, user.email);
+  const accessToken = generateAccessToken(user.id);
   const refreshToken = generateRefreshToken(user.id);
   await prisma.refreshToken.create({
     data: {
@@ -62,7 +62,7 @@ export async function login(
       "Invalid credentials"
     );
   }
-  const accessToken = generateAccessToken(user.id, user.email);
+  const accessToken = generateAccessToken(user.id);
   const refreshToken = generateRefreshToken(user.id);
   await prisma.refreshToken.create({
     data: {
@@ -113,10 +113,20 @@ export async function refresh(
   }
   verifyRefreshToken(refreshToken);
   return {
-    accessToken:
-      generateAccessToken(
-        storedToken.user.id,
-        storedToken.user.email
-      ),
+    accessToken:generateAccessToken(storedToken.user.id),
   };
+}
+
+export async function me(userId: number) {
+  return prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      createdAt: true,
+    },
+  });
 }

@@ -6,7 +6,7 @@ import { useRegister } from "../hooks/useRegister";
 import { useWatch } from "react-hook-form";
 import { ErrorIcon } from "../../../pages/icons";
 
-const RegisterPage = memo(() => {
+const RegisterCard = memo(({ onSwitch }: { onSwitch: () => void}) => {
   const {
     password,
     showPassword,
@@ -39,7 +39,7 @@ const RegisterPage = memo(() => {
 
   return (
     <motion.div
-      className={`relative max-w-md bg-white py-10 px-15 rounded-lg shadow-lg`}
+      className={`relative max-w-md bg-white py-10 px-15 rounded-lg shadow-lg border border-gray-200`}
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.8, y: 50 }}
@@ -166,8 +166,23 @@ const RegisterPage = memo(() => {
           <span>Register</span>
         </motion.button>
       </form>
+      {/* Switch to login link */}
+      <p className="mt-4 text-sm text-center">
+        Already on TasKO?
+        <button
+          type="button"
+          className="ml-1 cursor-pointer hover:underline"
+          onClick={(e) => {
+            e.preventDefault();
+            onSwitch();
+          }}
+        >
+          Login
+        </button>
+        .
+      </p>
     </motion.div>
   );
 });
 
-export default RegisterPage;
+export default RegisterCard;

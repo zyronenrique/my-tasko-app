@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useLogin } from "../hooks/useLogin";
 import { useWatch } from "react-hook-form";
 
-const LoginPage = memo(() => {
+const LoginCard = memo(({ onSwitch }: { onSwitch: () => void}) => {
   const {
     form,
     showPassword,
@@ -30,7 +30,7 @@ const LoginPage = memo(() => {
 
   return (
     <motion.div
-      className={`relative max-w-md flex-1 bg-white py-10 px-15 rounded-lg shadow-lg`}
+      className={`relative max-w-md flex-1 bg-white py-10 px-15 rounded-lg shadow-lg border border-gray-200`}
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.8, y: 50 }}
@@ -131,8 +131,23 @@ const LoginPage = memo(() => {
           <span>Login</span>
         </motion.button>
       </form>
+      {/* Switch to sign-up link */}
+      <p className="mt-4 text-sm text-center">
+        New to TasKO?
+        <button
+          type="button"
+          className="ml-1 cursor-pointer hover:underline"
+          aria-label="Create a new account"
+          onClick={(e) => {
+            e.preventDefault();
+            onSwitch();
+          }}
+        >
+          Create yours now.
+        </button>
+      </p>
     </motion.div>
   );
 });
 
-export default LoginPage;
+export default LoginCard;

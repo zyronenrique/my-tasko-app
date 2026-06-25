@@ -1,8 +1,15 @@
 import { useQuery, useMutation }from "@tanstack/react-query";
-import { getTasks, getTaskStats, createTask, updateTask, softDeleteTask, restoreTask, deleteTask } from "../api/task.api";
+import { getTasks, getTaskStats, createTask, updateTask, softDeleteTask, restoreTask, deleteTask, getTrash } from "../api/task.api";
 import { QUERY_KEYS }from "../constants/query-keys";
 import { queryClient } from "../lib/query-client";
 import type { TaskQuery, UpdateTaskDto } from "../types/task.types";
+
+export function useTrash() {
+  return useQuery({
+    queryKey: [QUERY_KEYS.TRASH],
+    queryFn: getTrash,
+  });
+}
 
 export function useTasks(
   params: TaskQuery
@@ -37,6 +44,9 @@ export function useCreateTask() {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.NOTIFICATIONS],
       });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.UNREAD_COUNT],
+      });
     },
   });
 }
@@ -64,6 +74,9 @@ export function useUpdateTask() {
         queryClient.invalidateQueries({
           queryKey: [QUERY_KEYS.NOTIFICATIONS],
         });
+        queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.UNREAD_COUNT],
+      });
       },
   });
 }
@@ -83,6 +96,9 @@ export function useDeleteTask() {
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.NOTIFICATIONS],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.UNREAD_COUNT],
       });
     },
   });
@@ -104,6 +120,12 @@ export function useRestoreTask() {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.NOTIFICATIONS],
       });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.UNREAD_COUNT],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.TRASH],
+      });
     },
   });
 }
@@ -120,6 +142,12 @@ export function usePermanentDeleteTask() {
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.NOTIFICATIONS],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.UNREAD_COUNT],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.TRASH],
       });
     },
   });

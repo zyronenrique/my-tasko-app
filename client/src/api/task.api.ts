@@ -2,7 +2,7 @@ import { api } from "../lib/api-client";
 import type { CreateTaskDto, PaginatedResponse, Task, TaskQuery, TaskStats, UpdateTaskDto } from "../types/task.types";
 
 export function getTrash() {
-  return api("/api/tasks/trash");
+  return api<Task[]>("/api/tasks/trash");
 }
 
 export async function getTasks(

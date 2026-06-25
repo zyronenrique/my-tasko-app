@@ -8,6 +8,7 @@ const DashboardPage = () => {
     <SkeletonCard key={`card-${index}`} />
   ));
   const { data: stats, isPending, error } = useTaskStats();
+
   return (
     <main>
       <div>

@@ -1,8 +1,8 @@
 import { api } from "../lib/api-client";
-import type { UnreadCount } from "../types/notification.types";
+import type { Notification, UnreadCount } from "../types/notification.types";
 
 export async function getNotifications() {
-  return api("/api/notifications");
+  return api<Notification[]>("/api/notifications");
 }
 
 export async function getUnreadCount() {

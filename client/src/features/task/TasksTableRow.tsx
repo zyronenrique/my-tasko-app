@@ -140,13 +140,7 @@ const TasksTableRow = ({
             onDelete={async () => {
               try {
                 deleteTaskM.mutate(task.id);
-                toast.promise(promise, {
-                  loading: 'Loading...',
-                  success: (data: any) => {
-                    return `${data.name}. This task deleted successfully.`;
-                  },
-                  error: 'Error',
-                });
+                toast.success("This task deleted successfully.");
               } catch {
                 toast.error("Failed to delete the task. Please try again.");
               }
