@@ -13,6 +13,7 @@ function App() {
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 flex-1">
         <section className='flex items-center justify-center'>
           <img
+            alt="TasKo Icon"
             title='TasKo Icon'
             loading="lazy"
             src={TasKO}

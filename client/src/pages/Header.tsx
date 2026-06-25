@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { LogOut, Settings, Bell, Trash2, Logs } from "lucide-react";
+import { LogOut, Bell, Trash2, Logs } from "lucide-react";
 import TasKO from '../assets/tasko.webp';
 import LogoutModal from "../features/auth/pages/LogoutModal";
 import { useUnreadCount } from "../hooks/useNotifications";

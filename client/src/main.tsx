@@ -7,7 +7,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster } from 'sonner';
 import { QueryProvider } from './providers/query-provider.tsx';
-import { router } from './routes/index.tsx';
+import { router } from './routes';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

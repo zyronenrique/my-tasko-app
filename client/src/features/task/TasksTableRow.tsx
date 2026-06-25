@@ -24,7 +24,7 @@ const TasksTableRow = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsOpenModal] = useState(false);
   const deleteTaskM = useDeleteTask();
-  const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: task.title }), 2000));
+
   return (
     <>
       <motion.tr

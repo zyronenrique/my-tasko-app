@@ -19,8 +19,7 @@ export function authMiddleware(
     });
   }
   try {
-    const payload = verifyAccessToken(token);
-    req.user = payload;
+    req.user = verifyAccessToken(token);
     next();
   } catch {
     return res.status(401).json({

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import {useLogout} from "../../../hooks/useAuth.ts";
 
 interface LogoutModalProps {
   isOpen: boolean;
@@ -8,8 +9,10 @@ interface LogoutModalProps {
 
 const LogoutModal = ({ isOpen, onClose }: LogoutModalProps) => {
   const navigate = useNavigate();
+  const logoutM = useLogout();
   const handleLogout = async() => {
     try {
+      logoutM.mutate();
       navigate("/", { replace: true });
     } catch (error) {
       console.error("Error signing out:", error);
